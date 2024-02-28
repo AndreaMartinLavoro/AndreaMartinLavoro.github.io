@@ -1,14 +1,14 @@
 [
     {
-        "link": "https://www.google.it/?hl=it",
-        "title": "Tes1",
-        "description": "test1",
-        "background": ""
+        "link": "https://open.spotify.com/playlist/0JZLy8gVyT9oF4pDkKjU2S?si=d897f5cf78f246b2",
+        "title": "Musica ben pareciada",
+        "description": "10 ore interessanti da riascoltare in ogni momento",
+        "background": "spotify/playlist1.jpeg"
     },
     {
-        "link": "https://www.google.it/?hl=it",
-        "title": "Test2",
-        "description": "test2",
-        "background": ""
+        "link": "https://open.spotify.com/playlist/73G833Umazhg8dpZvOJc2J?si=3a63b2566b984258",
+        "title": "90's Dance",
+        "description": "How much do you love 90's dance music?",
+        "background": "spotify/playlist2.jpeg"
     }
 ]

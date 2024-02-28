@@ -1,309 +1,371 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="assets/js/color-modes.js"></script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
-    <title>Martin Andrea - Developer</title>
+<head>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbars/">
+  <script src="assets/js/color-modes.js"></script>
 
-    
+  <!-- favico (da rigenerare tramite il sito) -->
+  <link rel="apple-touch-icon" sizes="57x57" href="favico/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favico/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favico/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favico/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favico/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favico/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favico/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favico/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favico/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favico/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favico/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favico/favicon-16x16.png">
+  <link rel="manifest" href="favico/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="favico/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Martin Andrea - Developer</title>
 
-<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+    .b-example-divider {
+      width: 100%;
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
 
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
+    .btn-bd-primary {
+      --bd-violet-bg: #712cf9;
+      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
 
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+      --bs-btn-font-weight: 600;
+      --bs-btn-color: var(--bs-white);
+      --bs-btn-bg: var(--bd-violet-bg);
+      --bs-btn-border-color: var(--bd-violet-bg);
+      --bs-btn-hover-color: var(--bs-white);
+      --bs-btn-hover-bg: #6528e0;
+      --bs-btn-hover-border-color: #6528e0;
+      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+      --bs-btn-active-color: var(--bs-btn-hover-color);
+      --bs-btn-active-bg: #5a23c8;
+      --bs-btn-active-border-color: #5a23c8;
+    }
 
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
-      }
+    .bd-mode-toggle {
+      z-index: 1500;
+    }
 
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
+    .bd-mode-toggle .dropdown-menu .active .bi {
+      display: block !important;
+    }
+  </style>
 
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-    </style>
+  <link href="navbars.css" rel="stylesheet">
+  <link href="heroes.css" rel="stylesheet">
+</head>
 
-    <link href="navbars.css" rel="stylesheet">
-    <link href="heroes.css" rel="stylesheet">
-  </head>
-  <body>
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-      <symbol id="check2" viewBox="0 0 16 16">
-        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-      </symbol>
-      <symbol id="circle-half" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-      </symbol>
-      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
-        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-      </symbol>
-      <symbol id="sun-fill" viewBox="0 0 16 16">
-        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-      </symbol>
-    </svg>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="check2" viewBox="0 0 16 16">
+      <path
+        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+    </symbol>
+    <symbol id="circle-half" viewBox="0 0 16 16">
+      <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+    </symbol>
+    <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+      <path
+        d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+      <path
+        d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+    </symbol>
+    <symbol id="sun-fill" viewBox="0 0 16 16">
+      <path
+        d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+    </symbol>
+  </svg>
 
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-              id="bd-theme"
-              type="button"
-              aria-expanded="false"
-              data-bs-toggle="dropdown"
-              aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
+  <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+    <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
+      aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
+      <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
+        <use href="#circle-half"></use>
+      </svg>
+      <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+      <li>
+        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light"
+          aria-pressed="false">
+          <svg class="bi me-2 opacity-50" width="1em" height="1em">
+            <use href="#sun-fill"></use>
+          </svg>
+          Light
+          <svg class="bi ms-auto d-none" width="1em" height="1em">
+            <use href="#check2"></use>
+          </svg>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark"
+          aria-pressed="false">
+          <svg class="bi me-2 opacity-50" width="1em" height="1em">
+            <use href="#moon-stars-fill"></use>
+          </svg>
+          Dark
+          <svg class="bi ms-auto d-none" width="1em" height="1em">
+            <use href="#check2"></use>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="modal fade" id="yourModalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">The MIT License (MIT)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <small class="text-muted">Copyright &copy; 2011-2018 Twitter, Inc.</small>
+              <br>
+            <small class="text-muted">Copyright &copy; 2011-2018 The Bootstrap Authors</small>
+              <br><br>
+              Permission is hereby granted, free of charge, to any person obtaining a copy
+              of this software and associated documentation files (the "Software"), to deal
+              in the Software without restriction, including without limitation the rights
+              to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+              copies of the Software, and to permit persons to whom the Software is
+              furnished to do so, subject to the following conditions:
+              <br><br>
+              The above copyright notice and this permission notice shall be included in
+              all copies or substantial portions of the Software.
+              <br><br>
+              <p style="color: #ffc107">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+              IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+              FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+              AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+              LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+              THE SOFTWARE.</p>
+            </div>
+        </div>
     </div>
+</div>
 
-    
-<main>
+  <main>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Tenth navbar example">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-    
-          <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="progetti.html">Progetti</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="spotify.html">Playlist</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Download</a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" onclick="downloadFile('CV Martin Andrea.pdf')">Curriculum Vitae</a></li>
-                  <li><a class="dropdown-item" onclick="downloadFile('Tesi Martin Andrea.pdf')">Tesi Triennale</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08"
+          aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="progetti.html">Progetti</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="spotify.html">Playlist</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Download</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="downloadFile('CV Martin Andrea.pdf')">Curriculum Vitae</a></li>
+                <li><a class="dropdown-item" onclick="downloadFile('Tesi Martin Andrea.pdf')">Tesi Triennale</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </div>
+    </nav>
 
 
-  <div class="px-4 py-5 my-5 text-center" style="margin-top: 0 !important">
-    <img class="d-block mx-auto mb-4" src="user.png" alt="" width="180">
-    <h1 class="display-5 fw-bold text-body-emphasis">Martin Andrea</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Questo sito web è il mio <strong style="color: #ffc107">angolo virtuale</strong>, uno spazio in cui condivido la mia passione per la creatività in tutte le sue forme.
-        <strong style="color: #ffc107">Se siete curiosi di conoscere chi sono</strong>, potrete trovare informazioni su di me, le mie passioni e molto altro.
-        <strong style="color: #ffc107">Se siete alla ricerca di ispirazione</strong>, potrete esplorare una selezione dei miei lavori passati e presenti.
-        E <strong style="color: #ffc107">se siete semplicemente di passaggio</strong>, potrete trovare spunti di riflessione, idee e curiosità su diversi argomenti, dalla cucina al fai da te, dalla musica all'arte.</p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" onclick="window.location.href='mailto:andrea.martin.lavoro@gmail.com'" class="btn btn-warning btn-lg px-4 gap-3">Mail</button>
-        <button type="button" onclick="window.location.href='https://it.linkedin.com/in/martinandreaitalia'" class="btn btn-outline-secondary btn-lg px-4">Linkedin</button>
+    <div class="px-4 py-5 my-5 text-center" style="margin-top: 0 !important">
+      <img class="d-block mx-auto mb-4" src="user.png" alt="" width="180">
+      <h1 class="display-5 fw-bold text-body-emphasis">Martin Andrea</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Questo sito web è il mio <strong style="color: #ffc107">angolo virtuale</strong>, uno
+          spazio in cui condivido la mia passione per la creatività in tutte le sue forme.
+          <strong style="color: #ffc107">Se siete curiosi di conoscere chi sono</strong>, potrete trovare informazioni
+          su di me, le mie passioni e molto altro.
+          <strong style="color: #ffc107">Se siete alla ricerca di ispirazione</strong>, potrete esplorare una selezione
+          dei miei lavori passati e presenti.
+          E <strong style="color: #ffc107">se siete semplicemente di passaggio</strong>, potrete trovare spunti di
+          riflessione, idee e curiosità su diversi argomenti, dalla cucina al fai da te, dalla musica all'arte.
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" onclick="window.location.href='mailto:andrea.martin.lavoro@gmail.com'"
+            class="btn btn-warning btn-lg px-4 gap-3">Mail</button>
+          <button type="button" onclick="window.location.href='https://it.linkedin.com/in/martinandreaitalia'"
+            class="btn btn-outline-secondary btn-lg px-4">Linkedin</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="b-example-divider"></div>
+    <div class="b-example-divider"></div>
 
-  <div class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div class="col-10 col-sm-8 col-lg-6">
-        <img src="media/Curriculum Vitae.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
-      </div>
-      <div class="col-lg-6">
-        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Curriculum Vitae</h1>
-        <p class="lead">Sono uno <strong style="color: #ffc107">studente lavoratore</strong> che aspira a proseguire gli studi e allo stesso tempo a
+    <div class="container col-xxl-8 px-4 py-5">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="media/Curriculum Vitae.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700"
+            height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Curriculum Vitae</h1>
+          <p class="lead">Sono uno <strong style="color: #ffc107">studente lavoratore</strong> che aspira a proseguire
+            gli studi e allo stesso tempo a
             confrontarsi con realtà aziendali di rilevanza ( in maniera tale da poter ampliare il più
-            possibile le mie conoscenze, sia in ambito teorico che in ambito pratico ).<br>Se vuoi saperne di più, scarica il mio <strong style="color: #ffc107">Curriculum Vitae</strong>.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" onclick="downloadFile('CV Martin Andrea.pdf')" class="btn btn-warning btn-lg px-4 me-md-2 w-100">Scarica</button>
+            possibile le mie conoscenze, sia in ambito teorico che in ambito pratico ).<br>Se vuoi saperne di più,
+            scarica il mio <strong style="color: #ffc107">Curriculum Vitae</strong>.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" onclick="downloadFile('CV Martin Andrea.pdf')"
+              class="btn btn-warning btn-lg px-4 me-md-2 w-100">Scarica</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="b-example-divider"></div>
+    <div class="b-example-divider"></div>
 
-  <div class="px-4 pt-5 my-5 text-center">
-    <h1 class="display-4 fw-bold text-body-emphasis">Relax</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4"><strong style="color: #ffc107">L'inventiva è il mio carburante</strong>, che si tratti di dar vita a qualcosa di completamente nuovo o di reinterpretare un'idea già esistente. 
-        Il processo creativo mi entusiasma e mi permette di esprimere me stesso in modi sempre diversi.
-        Adoro lavorare in compagnia, dove le idee si intrecciano e si evolvono in un <strong style="color: #ffc107">gioco di ispirazione</strong> reciproca. La <strong style="color: #ffc107">musica</strong> poi, diventa la colonna sonora perfetta per la mia mente in fermento, dando ritmo e armonia alle mie creazioni.
-        Che sia un progetto di bricolage, un nuovo piatto da cucinare o una canzone da scrivere, il mio entusiasmo è contagioso e rende <strong style="color: #ffc107">ogni momento un'occasione per esplorare nuovi orizzonti creativi</strong>.</p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-        <button type="button" onclick="window.location.href='progetti.html'" class="btn btn-warning btn-lg px-4 me-sm-3">Progetti</button>
-        <button type="button" onclick="window.location.href='spotify.html'" class="btn btn-outline-secondary btn-lg px-4">Playlist</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="b-example-divider"></div>
-
-  <div class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div class="col-10 col-sm-8 col-lg-6">
-        <img src="media/Tesi Triennale.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
-      </div>
-      <div class="col-lg-6">
-        <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Tesi Triennale</h1>
-        <p class="lead">Ad oggi, le <strong style="color: #ffc107">rivoluzioni industriali</strong> del mondo occidentale sono state tre, quella del <strong style="color: #ffc107">1784</strong> con la nascita della macchina a vapore, a seguire quella del <strong style="color: #ffc107">1870</strong> con il via alla produzione di massa e per ultima quella del <strong style="color: #ffc107">1970</strong> con la nascita dell’informatica. La data d’inizio della <strong style="color: #ffc107">quarta rivoluzione</strong> non è ancora stata scritta ma siamo certi che è in corso e tutti noi ne stiamo prendendo parte.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button type="button" onclick="downloadFile('Tesi Martin Andrea.pdf')" class="btn btn-warning btn-lg px-4 me-md-2 w-100">Scarica</button>
+    <div class="px-4 pt-5 my-5 text-center">
+      <h1 class="display-4 fw-bold text-body-emphasis">Relax</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4"><strong style="color: #ffc107">L'inventiva è il mio carburante</strong>, che si tratti di
+          dar vita a qualcosa di completamente nuovo o di reinterpretare un'idea già esistente.
+          Il processo creativo mi entusiasma e mi permette di esprimere me stesso in modi sempre diversi.
+          Adoro lavorare in compagnia, dove le idee si intrecciano e si evolvono in un <strong
+            style="color: #ffc107">gioco di ispirazione</strong> reciproca. La <strong
+            style="color: #ffc107">musica</strong> poi, diventa la colonna sonora perfetta per la mia mente in fermento,
+          dando ritmo e armonia alle mie creazioni.
+          Che sia un progetto di bricolage, un nuovo piatto da cucinare o una canzone da scrivere, il mio entusiasmo è
+          contagioso e rende <strong style="color: #ffc107">ogni momento un'occasione per esplorare nuovi orizzonti
+            creativi</strong>.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          <button type="button" onclick="window.location.href='progetti.html'"
+            class="btn btn-warning btn-lg px-4 me-sm-3">Progetti</button>
+          <button type="button" onclick="window.location.href='spotify.html'"
+            class="btn btn-outline-secondary btn-lg px-4">Playlist</button>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="b-example-divider"></div>
+    <div class="b-example-divider"></div>
 
-  <!-- <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-    <div class="row align-items-center g-lg-5 py-5">
-      <div class="col-lg-7 text-center text-lg-start">
-        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Never Enough</h1>
-        <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
-      </div>
-      <div class="col-md-10 mx-auto col-lg-5">
-        <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary">
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
+    <div class="container col-xxl-8 px-4 py-5">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img src="media/Tesi Triennale.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700"
+            height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Tesi Triennale</h1>
+          <p class="lead">Ad oggi, le <strong style="color: #ffc107">rivoluzioni industriali</strong> del mondo
+            occidentale sono state tre, quella del <strong style="color: #ffc107">1784</strong> con la nascita della
+            macchina a vapore, a seguire quella del <strong style="color: #ffc107">1870</strong> con il via alla
+            produzione di massa e per ultima quella del <strong style="color: #ffc107">1970</strong> con la nascita
+            dell’informatica. La data d’inizio della <strong style="color: #ffc107">quarta rivoluzione</strong> non è
+            ancora stata scritta ma siamo certi che è in corso e tutti noi ne stiamo prendendo parte.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" onclick="downloadFile('Tesi Martin Andrea.pdf')"
+              class="btn btn-warning btn-lg px-4 me-md-2 w-100">Scarica</button>
           </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-          </div>
-          <div class="checkbox mb-3">
-            <label>
-              <input type="checkbox" value="remember-me"> Remember me
-            </label>
-          </div>
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-          <hr class="my-4">
-          <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="b-example-divider"></div> -->
+    <div class="b-example-divider"></div>
 
-  <div class="container">
-    <footer class="py-3 my-4">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-        <li class="nav-item"><a href="https://it.linkedin.com/in/martinandreaitalia" class="nav-link px-2 text-body-secondary">Linkedin</a></li>
-        <li class="nav-item"><a href="mailto:andrea.martin.lavoro@gmail.com" class="nav-link px-2 text-body-secondary">Mail</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Licence</a></li>
-      </ul>
-      <p class="text-center text-body-secondary">&copy; 2024 Martin Andrea</p>
-    </footer>
-  </div>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+          <li class="nav-item"><a href="https://it.linkedin.com/in/martinandreaitalia"
+              class="nav-link px-2 text-body-secondary">Linkedin</a></li>
+          <li class="nav-item"><a href="mailto:andrea.martin.lavoro@gmail.com"
+              class="nav-link px-2 text-body-secondary">Mail</a></li>
+          <li class="nav-item"><a href="#" data-bs-toggle="modal" data-bs-target="#yourModalId" class="nav-link px-2 text-body-secondary">Licence</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">&copy; <strong id="year"></strong> Martin Andrea</p>
+      </footer>
+    </div>
 
-</main>
-<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-function downloadFile(file) {
-    var fileUrl = 'documents\\' + file;
-    var fileName = file;
-  
-    var downloadLink = document.createElement('a');
-    downloadLink.href = fileUrl;
-    downloadLink.download = fileName;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  }
+  </main>
+  <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function downloadFile(file) {
+      var fileUrl = 'documents\\' + file;
+      var fileName = file;
+
+      var downloadLink = document.createElement('a');
+      downloadLink.href = fileUrl;
+      downloadLink.download = fileName;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+
+    var dataCorrente = new Date();
+        var annoCorrente = dataCorrente.getFullYear();
+        document.getElementById("year").textContent = annoCorrente;
   </script>
 
-    </body>
+</body>
+
 </html>

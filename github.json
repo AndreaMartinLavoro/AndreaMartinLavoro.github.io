@@ -1,14 +1,8 @@
 [
     {
-        "link": "https://www.google.it/?hl=it",
-        "title": "Tes1",
-        "description": "test1",
-        "background": ""
-    },
-    {
-        "link": "https://www.google.it/?hl=it",
-        "title": "Test2",
-        "description": "test2",
-        "background": ""
+        "link": "https://github.com/AndreaMartinLavoro?tab=repositories",
+        "title": "GitHub",
+        "description": "Dai un occhiata alle mie repository pubbliche",
+        "background": "github/git.jpg"
     }
 ]
