@@ -10,5 +10,17 @@
         "title": "90's Dance",
         "description": "How much do you love 90's dance music?",
         "background": "spotify/playlist2.jpeg"
+    },
+    {
+        "link": "https://open.spotify.com/playlist/2xe0n9Kf9H645u4nMjEPYs?si=d842e1c47e404806",
+        "title": "Echi d'infanzia",
+        "description": "Da ritornelli orecchiabili a sigle che ancora ci fanno alzare dal divano, qui troverete la colonna sonora della nostalgia, pronta a catapultarvi nel passato con un mix di emozioni e ricordi giocosi.",
+        "background": "spotify/playlist3.jpeg"
+    },
+    {
+        "link": "https://open.spotify.com/playlist/4G0NmD3uhf6vQ0e2uuVbUy?si=9775cb971bbc424a",
+        "title": "Cuoppo Beats",
+        "description": "Pagare e morire, il più tardi possibile.",
+        "background": "spotify/playlist4.jpeg"
     }
 ]
