@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
+<title>Minimal Breakout</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    touch-action:none;
+}
+
+body{
+    background:#000;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+}
+
+canvas{
+    display:block;
+}
+
+#menuBtn,
+#backBtn{
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    width:52px;
+    height:52px;
+
+    border:0;
+    border-radius:50%;
+
+    background:white;
+    font-size:24px;
+
+    z-index:10;
+}
+
+#backBtn{
+
+    left:20px;
+    right:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+    color:#000;
+
+}
+
+
+#pause{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.8);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+    text-align:center;
+}
+
+
+#pause button{
+
+    display:block;
+
+    width:150px;
+    height:45px;
+
+    margin:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<a id="backBtn" href="games.html" aria-label="Torna al sito">←</a>
+<button id="menuBtn">☰</button>
+
+<div id="pause">
+
+<div>
+
+<h2>Pausa</h2>
+
+<button id="resume">
+Riprendi
+</button>
+
+<button id="exit">
+Esci
+</button>
+
+</div>
+
+</div>
+
+
+<canvas id="game"></canvas>
+
+
+
+<script>
+
+
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+
+
+let W,H;
+
+
+function resize(){
+
+    W=canvas.width=innerWidth;
+    H=canvas.height=innerHeight;
+
+}
+
+resize();
+
+onresize=resize;
+
+
+
+let state="menu";
+
+
+let score=0;
+let level=1;
+
+
+
+const paddle={
+
+    x:0,
+    y:0,
+    w:120,
+    h:14
+
+};
+
+
+
+const ball={
+
+    x:0,
+    y:0,
+
+    r:8,
+
+    vx:4,
+    vy:-5
+
+};
+
+
+
+let bricks=[];
+
+
+
+function createLevel(){
+
+    bricks=[];
+
+
+    let rows=4+level;
+    let cols=7;
+
+
+    let margin=25;
+
+    let bw=(W-margin*2)/cols;
+
+
+    for(let r=0;r<rows;r++){
+
+        for(let c=0;c<cols;c++){
+
+            bricks.push({
+
+                x:margin+c*bw,
+
+                y:80+r*25,
+
+                w:bw-5,
+
+                h:18,
+
+                alive:true
+
+            });
+
+        }
+
+    }
+
+}
+
+
+
+function reset(){
+
+    paddle.x=W/2-paddle.w/2;
+
+    paddle.y=H-60;
+
+
+    ball.x=W/2;
+
+    ball.y=H/2;
+
+
+    ball.vx=4;
+
+    ball.vy=-5;
+
+
+    createLevel();
+
+}
+
+
+
+function start(){
+
+    score=0;
+    level=1;
+
+    state="play";
+
+    reset();
+
+}
+
+
+
+canvas.addEventListener("pointerdown",e=>{
+
+
+    if(state==="menu" ||
+       state==="gameover"){
+
+        start();
+
+    }
+
+
+    movePaddle(e.clientX);
+
+
+});
+
+
+
+canvas.addEventListener("pointermove",e=>{
+
+    if(state==="play")
+
+        movePaddle(e.clientX);
+
+});
+
+
+
+function movePaddle(x){
+
+
+    paddle.x=x-paddle.w/2;
+
+
+    paddle.x=Math.max(
+
+        0,
+
+        Math.min(W-paddle.w,paddle.x)
+
+    );
+
+}
+
+
+
+
+function collision(a,b){
+
+return(
+
+a.x<b.x+b.w &&
+
+a.x+a.w>b.x &&
+
+a.y<b.y+b.h &&
+
+a.y+a.h>b.y
+
+);
+
+}
+
+
+
+
+function update(){
+
+
+if(state!=="play")
+    return;
+
+
+
+ball.x+=ball.vx;
+
+ball.y+=ball.vy;
+
+
+
+if(ball.x<ball.r ||
+   ball.x>W-ball.r)
+
+    ball.vx*=-1;
+
+
+
+if(ball.y<ball.r)
+
+    ball.vy*=-1;
+
+
+
+
+let bp={
+
+x:ball.x-ball.r,
+
+y:ball.y-ball.r,
+
+w:ball.r*2,
+
+h:ball.r*2
+
+};
+
+
+
+
+// paddle
+
+if(collision(bp,paddle) && ball.vy>0){
+
+    ball.vy=-Math.abs(ball.vy);
+
+
+    let hit=
+    (ball.x-(paddle.x+paddle.w/2))
+    /(paddle.w/2);
+
+
+    ball.vx=hit*7;
+
+}
+
+
+
+
+
+// mattoni
+
+
+for(let b of bricks){
+
+
+if(b.alive && collision(bp,b)){
+
+
+    b.alive=false;
+
+    score+=10;
+
+
+    ball.vy*=-1;
+
+
+    break;
+
+}
+
+}
+
+
+
+
+// fine livello
+
+
+if(bricks.every(b=>!b.alive)){
+
+
+    level++;
+
+    reset();
+
+}
+
+
+
+// caduta
+
+if(ball.y>H){
+
+    state="gameover";
+
+}
+
+
+
+}
+
+
+
+
+
+function draw(){
+
+
+ctx.fillStyle="#000";
+
+ctx.fillRect(0,0,W,H);
+
+
+
+// punteggio
+
+
+ctx.fillStyle="white";
+
+ctx.font="24px Arial";
+
+ctx.textAlign="center";
+
+
+ctx.fillText(
+"Score "+score,
+W/2,
+40
+);
+
+
+
+ctx.fillText(
+"Level "+level,
+W/2,
+65
+);
+
+
+
+
+// mattoni
+
+
+ctx.fillStyle="white";
+
+
+for(let b of bricks){
+
+    if(b.alive)
+
+        ctx.fillRect(
+            b.x,
+            b.y,
+            b.w,
+            b.h
+        );
+
+}
+
+
+
+// barra
+
+
+ctx.fillRect(
+
+paddle.x,
+paddle.y,
+paddle.w,
+paddle.h
+
+);
+
+
+
+// palla
+
+
+ctx.beginPath();
+
+ctx.arc(
+ball.x,
+ball.y,
+ball.r,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+
+
+
+
+if(state==="menu"){
+
+
+ctx.font="34px Arial";
+
+
+ctx.fillText(
+"BREAKOUT",
+W/2,
+H/2-40
+);
+
+
+ctx.font="20px Arial";
+
+
+ctx.fillText(
+"tocca per iniziare",
+W/2,
+H/2+20
+);
+
+
+}
+
+
+
+
+if(state==="gameover"){
+
+
+ctx.font="35px Arial";
+
+
+ctx.fillText(
+"GAME OVER",
+W/2,
+H/2
+);
+
+
+ctx.font="20px Arial";
+
+
+ctx.fillText(
+"tocca per riprovare",
+W/2,
+H/2+45
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+menuBtn.onclick=()=>{
+
+if(state==="play"){
+
+state="pause";
+
+pause.style.display="flex";
+
+}
+
+};
+
+
+
+resume.onclick=()=>{
+
+state="play";
+
+pause.style.display="none";
+
+};
+
+
+
+exit.onclick=()=>{
+
+state="menu";
+
+pause.style.display="none";
+
+};
+
+
+
+
+function loop(){
+
+update();
+
+draw();
+
+requestAnimationFrame(loop);
+
+}
+
+
+reset();
+
+loop();
+
+
+</script>
+
+
+</body>
+</html>

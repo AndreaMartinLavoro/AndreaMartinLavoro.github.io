@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "tag": "Spotify Playlist",
+        "title": "Italiana",
+        "description": "Un'estate d'oro.",
+        "image": "https://image-cdn-fa.spotifycdn.com/image/ab67706c000097ac99be1fce7211a815ccadc9f2",
+        "url": "https://open.spotify.com/playlist/7FfpEV8FstLOs3SUtupeOX?si=911de35300f04de9"
+    },
+    {
+        "id": 2,
+        "tag": "Spotify Playlist",
+        "title": "Old but Gold",
+        "description": "Ascolta e non rompere i c*****ni.",
+        "image": "https://image-cdn-fa.spotifycdn.com/image/ab67706c000097ace8b09811cc0171fd44a4d441",
+        "url": "https://open.spotify.com/playlist/7iUNg8BxLynbU1BGMaI8PP?si=c72f260edd9c489a"
+    },
+    {
+        "id": 3,
+        "tag": "Spotify Playlist",
+        "title": "Echi d'infanzia",
+        "description": "Soundtrack dei Ricordi.",
+        "image": "https://image-cdn-fa.spotifycdn.com/image/ab67706c000097acb73a342241092b5f9af7d020",
+        "url": "https://open.spotify.com/playlist/2xe0n9Kf9H645u4nMjEPYs?si=96df0ebbfb1f438c"
+    },
+    {
+        "id": 4,
+        "tag": "Spotify Playlist",
+        "title": "SHALLA 00mg",
+        "description": "Tante bustine - uso orale SENZA ACQUA.",
+        "image": "https://image-cdn-ak.spotifycdn.com/image/ab67706c000097acecaef6dad970958f637c9b39",
+        "url": "https://open.spotify.com/playlist/3SSBSHOfHUZUCGtvogMCLq?si=wqgPyPSOSPOZskl4VU4tTw"
+    }
+]
