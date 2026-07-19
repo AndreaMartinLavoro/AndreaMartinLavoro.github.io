@@ -1,29 +1,43 @@
-document.addEventListener('DOMContentLoaded', function () {
+function initNav(){
+  var toggle = document.querySelector('.menu-toggle');
+  var nav = document.querySelector('.sidebar nav');
 
-var toggle = document.querySelector('.menu-toggle');
-var nav = document.querySelector('.sidebar nav');
+  if(!toggle || !nav) return;
 
-if (!toggle || !nav) return;
+  var current = location.pathname.split('/').pop() || 'index.html';
 
-toggle.addEventListener('click', function () {
+  nav.querySelectorAll('a').forEach(function(link){
+    if(link.getAttribute('href') === current) link.classList.add('active');
 
-var isOpen = nav.classList.toggle('open');
+    link.addEventListener('click', function(){
+      nav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 
-toggle.classList.toggle('open', isOpen);
-toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.addEventListener('click', function(){
+    var isOpen = nav.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+}
 
-});
+document.addEventListener('DOMContentLoaded', function(){
+  var placeholder = document.getElementById('sidebar-placeholder');
 
-nav.querySelectorAll('a').forEach(function (link) {
+  if(!placeholder){
+    initNav();
+    return;
+  }
 
-link.addEventListener('click', function () {
-
-nav.classList.remove('open');
-toggle.classList.remove('open');
-toggle.setAttribute('aria-expanded', 'false');
-
-});
-
-});
-
+  fetch('partials/sidebar.html')
+    .then(function(res){ return res.text(); })
+    .then(function(html){
+      placeholder.outerHTML = html;
+      initNav();
+    })
+    .catch(function(){
+      console.error('Impossibile caricare la sidebar. Se hai aperto il file direttamente (file://), avvia un server locale, es. "python3 -m http.server".');
+    });
 });

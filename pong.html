@@ -6,838 +6,272 @@
 
 <title>Vertical Pong</title>
 
+<link rel="stylesheet" href="css/games.css">
+
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    touch-action:none;
-}
-
-body{
-    background:#000;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
-}
-
-canvas{
-    display:block;
-}
-
-
-/* Pulsante pausa */
-
-#menuBtn,
-#backBtn{
-
-    position:fixed;
-
-    top:20px;
-    right:20px;
-
-    width:56px;
-    height:56px;
-
-    border:none;
-    border-radius:50%;
-
-    background:white;
-
-    font-size:26px;
-
-    z-index:10;
-
-}
-
-#backBtn{
-
-    left:20px;
-    right:auto;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-decoration:none;
-    color:#000;
-
-}
-
-
-/* Menu pausa */
-
 #pauseMenu{
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.75);
-
-    display:none;
-
-    justify-content:center;
-
-    align-items:center;
-
-    z-index:20;
-
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:20;
 }
-
 
 .box{
-
-    background:#222;
-
-    padding:30px;
-
-    border-radius:15px;
-
-    text-align:center;
-
-    color:white;
-
+  background:#222;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  color:white;
 }
 
-
-.box h2{
-
-    margin-bottom:20px;
-
-}
-
+.box h2{margin-bottom:20px;}
 
 .box button{
-
-    width:160px;
-
-    height:45px;
-
-    margin:8px;
-
-    border:0;
-
-    border-radius:8px;
-
-    font-size:18px;
-
+  width:160px;
+  height:45px;
+  margin:8px;
+  border:0;
+  border-radius:8px;
+  font-size:18px;
 }
-
 </style>
 
 </head>
-
-
 <body>
 
-
-<a id="backBtn" href="games.html" aria-label="Torna al sito">←</a>
-<button id="menuBtn">☰</button>
-
+<a id="backBtn" class="game-btn back" href="games.html" aria-label="Torna al sito">←</a>
+<button id="menuBtn" class="game-btn menu">☰</button>
 
 <div id="pauseMenu">
-
-    <div class="box">
-
-        <h2>Pausa</h2>
-
-        <button id="resume">
-            Riprendi
-        </button>
-
-        <button id="quit">
-            Esci
-        </button>
-
-    </div>
-
+  <div class="box">
+    <h2>Pausa</h2>
+    <button id="resume">Riprendi</button>
+    <button id="quit">Esci</button>
+  </div>
 </div>
-
-
 
 <canvas id="game"></canvas>
 
-
-
 <script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
 
-
-const canvas=document.getElementById("game");
-const ctx=canvas.getContext("2d");
-
-
-let W,H;
-
+let W, H;
 
 function resize(){
-
-    W=canvas.width=innerWidth;
-    H=canvas.height=innerHeight;
-
+  W = canvas.width = innerWidth;
+  H = canvas.height = innerHeight;
 }
-
 resize();
+window.onresize = resize;
 
-window.onresize=resize;
+let mode = "menu";
+let gameType = "cpu";
 
+let playerScore = 0;
+let cpuScore = 0;
 
+const player = { x: 0, y: 0, w: 120, h: 16 };
+const cpu = { x: 0, y: 0, w: 120, h: 16 };
+const ball = { x: 0, y: 0, r: 8, vx: 0, vy: 0 };
 
-let mode="menu";
-
-let gameType="cpu";
-
-
-let playerScore=0;
-let cpuScore=0;
-
-
-
-const player={
-
-    x:0,
-    y:0,
-    w:120,
-    h:16
-
-};
-
-
-
-const cpu={
-
-    x:0,
-    y:0,
-    w:120,
-    h:16
-
-};
-
-
-
-const ball={
-
-    x:0,
-    y:0,
-    r:8,
-    vx:0,
-    vy:0
-
-};
-
-
-
-let touches={};
-
-
+let touches = {};
 
 function reset(){
+  player.x = W / 2 - player.w / 2;
+  player.y = H - 60;
 
+  cpu.x = W / 2 - cpu.w / 2;
+  cpu.y = 45;
 
-    player.x=W/2-player.w/2;
-
-    player.y=H-60;
-
-
-
-    cpu.x=W/2-cpu.w/2;
-
-    cpu.y=45;
-
-
-
-    ball.x=W/2;
-
-    ball.y=H/2;
-
-
-
-    ball.vx=Math.random()*3-1.5;
-
-    ball.vy=5;
-
-
+  ball.x = W / 2;
+  ball.y = H / 2;
+  ball.vx = Math.random() * 3 - 1.5;
+  ball.vy = 5;
 }
-
-
-
 
 function start(type){
-
-    gameType=type;
-
-    playerScore=0;
-
-    cpuScore=0;
-
-    mode="play";
-
-    reset();
-
+  gameType = type;
+  playerScore = 0;
+  cpuScore = 0;
+  mode = "play";
+  reset();
 }
-
-
-
 
 function movePlayer(x){
-
-
-    player.x=x-player.w/2;
-
-
-    player.x=Math.max(
-        0,
-        Math.min(W-player.w,player.x)
-    );
-
+  player.x = x - player.w / 2;
+  player.x = Math.max(0, Math.min(W - player.w, player.x));
 }
 
+canvas.addEventListener("pointerdown", e => {
+  canvas.setPointerCapture(e.pointerId);
+  touches[e.pointerId] = { x: e.clientX, y: e.clientY };
 
-
-
-canvas.addEventListener("pointerdown",e=>{
-
-
-    canvas.setPointerCapture(e.pointerId);
-
-
-
-    touches[e.pointerId]={
-
-        x:e.clientX,
-
-        y:e.clientY
-
-    };
-
-
-
-    if(mode==="menu"){
-
-
-        if(e.clientY<H/2)
-
-            start("multi");
-
-        else
-
-            start("cpu");
-
-    }
-
-
-
+  if(mode === "menu"){
+    if(e.clientY < H / 2) start("multi");
+    else start("cpu");
+  }
 });
 
+canvas.addEventListener("pointermove", e => {
+  if(!touches[e.pointerId]) return;
 
-
-
-
-canvas.addEventListener("pointermove",e=>{
-
-
-    if(!touches[e.pointerId])
-
-        return;
-
-
-
-    touches[e.pointerId]={
-
-        x:e.clientX,
-
-        y:e.clientY
-
-    };
-
-
-
-    updateTouches();
-
-
+  touches[e.pointerId] = { x: e.clientX, y: e.clientY };
+  updateTouches();
 });
 
-
-
-
-
-canvas.addEventListener("pointerup",e=>{
-
-
-    delete touches[e.pointerId];
-
-
+canvas.addEventListener("pointerup", e => {
+  delete touches[e.pointerId];
 });
-
-
-
-
 
 function updateTouches(){
+  for(let id in touches){
+    let t = touches[id];
 
-
-
-    for(let id in touches){
-
-
-        let t=touches[id];
-
-
-
-        if(gameType==="multi" && t.y<H/2){
-
-
-            cpu.x=t.x-cpu.w/2;
-
-
-        }
-
-
-
-        if(t.y>=H/2){
-
-
-            player.x=t.x-player.w/2;
-
-
-        }
-
-
+    if(gameType === "multi" && t.y < H / 2){
+      cpu.x = t.x - cpu.w / 2;
     }
 
+    if(t.y >= H / 2){
+      player.x = t.x - player.w / 2;
+    }
+  }
 
-
-    player.x=Math.max(
-        0,
-        Math.min(W-player.w,player.x)
-    );
-
-
-    cpu.x=Math.max(
-        0,
-        Math.min(W-cpu.w,cpu.x)
-    );
-
-
+  player.x = Math.max(0, Math.min(W - player.w, player.x));
+  cpu.x = Math.max(0, Math.min(W - cpu.w, cpu.x));
 }
 
-
-
-
-
-
-
-function collision(a,b){
-
-
-return (
-
-a.x<b.x+b.w &&
-
-a.x+a.w>b.x &&
-
-a.y<b.y+b.h &&
-
-a.y+a.h>b.y
-
-);
-
-
+function collision(a, b){
+  return (
+    a.x < b.x + b.w &&
+    a.x + a.w > b.x &&
+    a.y < b.y + b.h &&
+    a.y + a.h > b.y
+  );
 }
-
-
-
-
-
 
 function update(){
+  if(mode !== "play") return;
 
+  // CPU
+  if(gameType === "cpu"){
+    let target = ball.x;
 
-if(mode!=="play")
-
-    return;
-
-
-
-// CPU
-
-
-if(gameType==="cpu"){
-
-
-    let target=ball.x;
-
-
-
-    if(ball.vy<0){
-
-
-        let t=(ball.y-cpu.y)/
-        Math.abs(ball.vy);
-
-
-
-        target=ball.x+
-        ball.vx*t*0.7;
-
-
+    if(ball.vy < 0){
+      let t = (ball.y - cpu.y) / Math.abs(ball.vy);
+      target = ball.x + ball.vx * t * 0.7;
     }
 
+    cpu.x += (target - (cpu.x + cpu.w / 2)) * 0.08;
+  }
 
+  ball.x += ball.vx;
+  ball.y += ball.vy;
 
-    cpu.x +=
+  if(ball.x < ball.r || ball.x > W - ball.r) ball.vx *= -1;
 
-    (target-(cpu.x+cpu.w/2))*0.08;
+  let b = { x: ball.x - ball.r, y: ball.y - ball.r, w: ball.r * 2, h: ball.r * 2 };
 
+  if(collision(b, player) && ball.vy > 0){
+    ball.vy = -Math.abs(ball.vy);
+    ball.vx = ((ball.x - (player.x + player.w / 2)) / (player.w / 2)) * 6;
+  }
 
+  if(collision(b, cpu) && ball.vy < 0){
+    ball.vy = Math.abs(ball.vy);
+    ball.vx = ((ball.x - (cpu.x + cpu.w / 2)) / (cpu.w / 2)) * 6;
+  }
 
-}
-
-
-
-
-ball.x+=ball.vx;
-
-ball.y+=ball.vy;
-
-
-
-
-if(ball.x<ball.r ||
-   ball.x>W-ball.r)
-
-    ball.vx*=-1;
-
-
-
-
-
-let b={
-
-    x:ball.x-ball.r,
-
-    y:ball.y-ball.r,
-
-    w:ball.r*2,
-
-    h:ball.r*2
-
-};
-
-
-
-
-if(collision(b,player) && ball.vy>0){
-
-
-    ball.vy=-Math.abs(ball.vy);
-
-
-
-    ball.vx=
-
-    ((ball.x-(player.x+player.w/2))
-
-    /(player.w/2))*6;
-
-
-}
-
-
-
-
-
-if(collision(b,cpu) && ball.vy<0){
-
-
-    ball.vy=Math.abs(ball.vy);
-
-
-
-    ball.vx=
-
-    ((ball.x-(cpu.x+cpu.w/2))
-
-    /(cpu.w/2))*6;
-
-
-}
-
-
-
-
-
-if(ball.y<0){
-
+  if(ball.y < 0){
     playerScore++;
-
     reset();
+  }
 
-}
-
-
-
-
-
-if(ball.y>H){
-
+  if(ball.y > H){
     cpuScore++;
-
     reset();
+  }
 
+  if(playerScore >= 10 || cpuScore >= 10){
+    mode = "gameover";
+  }
 }
-
-
-
-
-
-if(playerScore>=10 ||
-   cpuScore>=10){
-
-    mode="gameover";
-
-}
-
-
-
-}
-
-
-
-
-
-
 
 function draw(){
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, W, H);
 
+  ctx.strokeStyle = "#333";
+  ctx.setLineDash([10, 15]);
+  ctx.beginPath();
+  ctx.moveTo(0, H / 2);
+  ctx.lineTo(W, H / 2);
+  ctx.stroke();
+  ctx.setLineDash([]);
 
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
+  ctx.font = "40px Arial";
+  ctx.fillText(cpuScore, W / 2, 80);
+  ctx.fillText(playerScore, W / 2, H - 80);
 
-ctx.fillStyle="#000";
+  ctx.fillRect(cpu.x, cpu.y, cpu.w, cpu.h);
+  ctx.fillRect(player.x, player.y, player.w, player.h);
 
-ctx.fillRect(0,0,W,H);
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+  ctx.fill();
 
+  if(mode === "menu"){
+    ctx.font = "32px Arial";
+    ctx.fillText("VERTICAL PONG", W / 2, H / 2 - 60);
 
+    ctx.font = "20px Arial";
+    ctx.fillText("tocca sopra: 1 vs 1", W / 2, H / 2);
+    ctx.fillText("tocca sotto: CPU", W / 2, H / 2 + 40);
+  }
 
+  if(mode === "gameover"){
+    ctx.font = "35px Arial";
+    ctx.fillText(playerScore > cpuScore ? "HAI VINTO" : "HAI PERSO", W / 2, H / 2);
 
-ctx.strokeStyle="#333";
-
-ctx.setLineDash([10,15]);
-
-
-ctx.beginPath();
-
-ctx.moveTo(0,H/2);
-
-ctx.lineTo(W,H/2);
-
-ctx.stroke();
-
-
-ctx.setLineDash([]);
-
-
-
-
-ctx.fillStyle="white";
-
-ctx.textAlign="center";
-
-ctx.font="40px Arial";
-
-
-ctx.fillText(cpuScore,W/2,80);
-
-ctx.fillText(playerScore,W/2,H-80);
-
-
-
-
-ctx.fillRect(
-cpu.x,
-cpu.y,
-cpu.w,
-cpu.h
-);
-
-
-
-ctx.fillRect(
-player.x,
-player.y,
-player.w,
-player.h
-);
-
-
-
-
-ctx.beginPath();
-
-ctx.arc(
-ball.x,
-ball.y,
-ball.r,
-0,
-Math.PI*2
-);
-
-ctx.fill();
-
-
-
-
-
-
-if(mode==="menu"){
-
-
-ctx.font="32px Arial";
-
-ctx.fillText(
-"VERTICAL PONG",
-W/2,
-H/2-60
-);
-
-
-
-ctx.font="20px Arial";
-
-
-ctx.fillText(
-"tocca sopra: 1 vs 1",
-W/2,
-H/2
-);
-
-
-
-ctx.fillText(
-"tocca sotto: CPU",
-W/2,
-H/2+40
-);
-
-
+    ctx.font = "20px Arial";
+    ctx.fillText("tocca per ricominciare", W / 2, H / 2 + 40);
+  }
 }
 
-
-
-
-if(mode==="gameover"){
-
-
-ctx.font="35px Arial";
-
-
-ctx.fillText(
-
-playerScore>cpuScore?
-"HAI VINTO":
-"HAI PERSO",
-
-W/2,
-H/2
-
-);
-
-
-
-ctx.font="20px Arial";
-
-
-ctx.fillText(
-"tocca per ricominciare",
-W/2,
-H/2+40
-);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-menuBtn.onclick=()=>{
-
-
-if(mode==="play"){
-
-
-    mode="pause";
-
-    pauseMenu.style.display="flex";
-
-
-}
-
-
+menuBtn.onclick = () => {
+  if(mode === "play"){
+    mode = "pause";
+    pauseMenu.style.display = "flex";
+  }
 };
 
-
-
-
-
-resume.onclick=()=>{
-
-
-mode="play";
-
-pauseMenu.style.display="none";
-
-
+resume.onclick = () => {
+  mode = "play";
+  pauseMenu.style.display = "none";
 };
 
-
-
-
-
-quit.onclick=()=>{
-
-
-mode="menu";
-
-playerScore=0;
-
-cpuScore=0;
-
-touches={};
-
-
-pauseMenu.style.display="none";
-
-
+quit.onclick = () => {
+  mode = "menu";
+  playerScore = 0;
+  cpuScore = 0;
+  touches = {};
+  pauseMenu.style.display = "none";
 };
-
-
-
-
-
-
 
 function loop(){
-
-    update();
-
-    draw();
-
-    requestAnimationFrame(loop);
-
+  update();
+  draw();
+  requestAnimationFrame(loop);
 }
 
-
 reset();
-
 loop();
-
-
 </script>
-
 
 </body>
 </html>

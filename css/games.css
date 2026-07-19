@@ -1,0 +1,31 @@
+/* Stili condivisi dai giochi arcade (flappy, pong, breakout) */
+
+*{margin:0;padding:0;box-sizing:border-box;touch-action:none;}
+
+body{
+  background:#000;
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+}
+
+canvas{display:block;}
+
+.game-btn{
+  position:fixed;
+  top:20px;
+  width:52px;
+  height:52px;
+  border:0;
+  border-radius:50%;
+  background:white;
+  color:#000;
+  font-size:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  z-index:10;
+}
+
+.game-btn.menu{right:20px;}
+.game-btn.back{left:20px;}
